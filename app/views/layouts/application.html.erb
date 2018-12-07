@@ -10,8 +10,14 @@
   </head>
 
   <body>
+    <%= render 'layouts/navigation' %>
     <%= render 'layouts/messages' %>
+    <!--Yield gives access to the entirety of other views and controllers. They will be served here-->
 
+  <div class="container">
     <%= yield %>
+  </div>
+  <%= render 'layouts/footer' %>
+
   </body>
 </html>
