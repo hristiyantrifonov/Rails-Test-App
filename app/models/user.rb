@@ -1,6 +1,7 @@
-class User <ApplicationRecord
+class User < ApplicationRecord
 
   # One to many association - the one side
+  has_secure_password
   has_many :articles
   before_save { self.email = email.downcase } # before it hits the database we can change it here
 
@@ -17,7 +18,5 @@ class User <ApplicationRecord
             length: {maximum: 105},
             format: { with: VALID_EMAIL_REGEX }
 
-  validates :user_id,
-            presence: true
 
 end
