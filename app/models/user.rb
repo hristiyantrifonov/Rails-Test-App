@@ -2,7 +2,7 @@ class User < ApplicationRecord
 
   # One to many association - the one side
   has_secure_password
-  has_many :articles
+  has_many :articles, dependent: :destroy # dependent part ensures that if the user is deleted the articles are deleted as well
   before_save { self.email = email.downcase } # before it hits the database we can change it here
 
   validates :username,
