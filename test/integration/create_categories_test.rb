@@ -4,7 +4,6 @@ class CreateCategoriesTest <ActionDispatch::IntegrationTest
 
   # We are emulating user's behavior here
   test "get new category form and create category" do
-
     get new_category_path
     assert_template 'categories/new'
     assert_difference 'Category.count', 1 do
@@ -18,6 +17,22 @@ class CreateCategoriesTest <ActionDispatch::IntegrationTest
     assert_template 'categories/index'
     assert_match "sports", response.body
   end
+
+  test "invalid category submission results in failure" do
+    get new_category_path
+    assert_template 'categories/new'
+    assert_no_difference 'Category.count'  do
+      post categories_path, params: { category: {name: " "} }
+    end
+
+    # Specifying what we see after the request
+    assert_template 'categories/new'
+
+    # These check if we got the errors partial
+    assert_select 'h2.panel-title'
+    assert_select 'div.panel-body'
+  end
+
 
 
 end
