@@ -18,6 +18,11 @@
   <h4 class="center description"><strong>Description:</strong></h4>
   <hr/>
   <%= simple_format(@article.description) %>
+  <% if @article.categories.any? %>
+    <!--This render @article.categories will do the same thing as doing it with each block - this is just a shortcut-->
+    <!--This however requires a partial to run: name _category.html.erb-->
+    <p>Categories: <%= render @article.categories %></p>
+  <% end %>
   <div class="article-actions">
     <% if logged_in? && (current_user == @article.user || current_user.admin?) %>
       <%= link_to 'Edit this article',  edit_article_path(@article), class: "btn btn-xs btn-primary" %>
